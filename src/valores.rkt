@@ -1,5 +1,5 @@
 #lang eopl
-;Autores: Nombre1 Codigo1, Nombre2 Codigo2
+;Autores: Luis David Mendoza Manzano - 2067621
 
 ;; Taller 2 — El intérprete de Cauca.
 ;; El valor procedimiento. Requiere sintaxis.rkt.
@@ -18,7 +18,17 @@
 ;; construir clausuras al resolver letrec: Racket no carga dos módulos
 ;; que se requieran entre sí, levanta cycle in loading. Es el único
 ;; campo que queda sin verificar.
+;;
+;; Ejemplo: (cerradura '(x) (var-exp 'x) (ambiente-vacio))
+;;   es la clausura del procedimiento proc (x) x end creado en el
+;;   ambiente vacío.
 
 (require "sintaxis.rkt")
+
+(define-datatype procval procval?
+  (cerradura
+   (ids (list-of symbol?))
+   (body expresion?)
+   (env (lambda (v) #t))))
 
 (provide (all-defined-out))
